@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nest-nx-payment/common": ["libs/common/src/index.ts"],
+      "@nest-nx-payment/persistence": ["libs/persistence/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
