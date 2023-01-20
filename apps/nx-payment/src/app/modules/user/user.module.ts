@@ -1,8 +1,10 @@
 import {Module} from '@nestjs/common';
+import {TypeOrmModule} from "@nestjs/typeorm";
+import {JwtService} from "@nestjs/jwt";
 
 import {UsersService} from "./user.service";
 import {AuthController} from "./auth.controller";
-import {TypeOrmModule} from "@nestjs/typeorm";
+
 
 import {User} from "@nest-nx-payment/persistence";
 
@@ -10,7 +12,7 @@ import {User} from "@nest-nx-payment/persistence";
   imports: [
     TypeOrmModule.forFeature([User]),
   ],
-  providers: [UsersService],
+  providers: [JwtService,UsersService],
   controllers: [AuthController],
   exports: []
 })

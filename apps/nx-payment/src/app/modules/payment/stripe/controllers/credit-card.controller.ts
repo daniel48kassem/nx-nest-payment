@@ -2,10 +2,10 @@ import {Body, Controller, Get, HttpCode, Post, Req, UseGuards} from '@nestjs/com
 
 import {JwtAccessGuard, NxRequest} from "@nest-nx-payment/common";
 
-import StripeService from '../stripe/stripe.service';
-import {AddCreditCardDto, SetDefaultCreditCardDto} from "./dto";
+import StripeService from '../stripe.service';
+import {AddCreditCardDto, SetDefaultCreditCardDto} from "../dto";
 
-@Controller('credit-cards')
+@Controller('stripe/credit-cards')
 @UseGuards(JwtAccessGuard)
 export default class CreditCardsController {
   constructor(

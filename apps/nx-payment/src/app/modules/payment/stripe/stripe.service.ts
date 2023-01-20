@@ -1,6 +1,6 @@
 import {BadRequestException, Injectable, InternalServerErrorException} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
-import Stripe from 'stripe';
+import {Stripe} from 'stripe';
 
 enum StripeError {
   InvalidRequest = 'StripeInvalidRequestError'
@@ -13,7 +13,7 @@ export default class StripeService {
   constructor(
     private configService: ConfigService
   ) {
-    this.stripe = new Stripe(configService.get('STRIPE_SECRET_KEY'), {
+    this.stripe = new Stripe(configService.get('stripe.secretKey'), {
       apiVersion: '2022-11-15',
     });
   }
@@ -31,7 +31,15 @@ export default class StripeService {
       customer: customerId,
       payment_method: paymentMethodId,
       currency: this.configService.get('STRIPE_CURRENCY'),
-      confirm: true
+      confirmation_method: "manual", // For 3D Security,
+      // confirm: true,//this for immediate paymentIntent
+    })
+  }
+
+
+  public async confirmPayment(paymentIntentId: string, paymentMethodId: string) {
+    return await this.stripe.paymentIntents.confirm(paymentIntentId, {
+      payment_method: paymentMethodId,
     })
   }
 

@@ -3,6 +3,9 @@ export const environment = {
   baseUrl: process.env.BASE_URL || 'localhost:3001',
   port: process.env.PORT || 3001,
   nodeEnv: process.env.NODE_ENV || 'development',
+  stripe: {
+    secretKey: process.env.STRIPE_SECRET_KEY
+  },
   database: {
     type: 'postgres',
     host: process.env.DATABASE_HOST,
