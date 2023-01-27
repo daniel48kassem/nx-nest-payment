@@ -27,12 +27,11 @@ export default class StripeService {
 
   public async charge(amount: number, paymentMethodId: string, customerId: string) {
     return this.stripe.paymentIntents.create({
-      amount,
+      amount:amount*100,
       customer: customerId,
       payment_method: paymentMethodId,
       currency: this.configService.get('STRIPE_CURRENCY'),
       confirmation_method: "manual", // For 3D Security,
-      // confirm: true,//this for immediate paymentIntent
     })
   }
 
@@ -44,10 +43,11 @@ export default class StripeService {
   }
 
   public async attachCreditCard(paymentMethodId: string, customerId: string) {
-    return this.stripe.setupIntents.create({
-      customer: customerId,
-      payment_method: paymentMethodId,
-    })
+    return this.stripe.paymentMethods.attach(
+      paymentMethodId,
+      {
+        customer: customerId,
+      })
   }
 
 
